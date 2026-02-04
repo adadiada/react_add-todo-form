@@ -9,10 +9,6 @@ import { User } from './api/types';
 import { getUserById } from './services/user';
 import users from './api/users';
 
-// type Props = {
-//   onSubmit: (todo: Todo) => void;
-// };
-
 const initialTodos: Todo[] = todosFromServer.map(todo => ({
   ...todo,
   user: getUserById(todo.userId),
@@ -49,7 +45,7 @@ export const App = () => {
       return;
     }
 
-    const maxId = Math.max(...todos.map(todo => todo.id));
+    const maxId = todos.length ? Math.max(...todos.map(todo => todo.id)) : 0;
 
     addTodo({
       id: maxId + 1,
@@ -66,7 +62,7 @@ export const App = () => {
     <div className="App">
       <h1>Add todo form</h1>
 
-      <form action="/api/todos" method="POST" onSubmit={handeleSubmit}>
+      <form onSubmit={handeleSubmit}>
         <div className="field">
           <label className="lable" htmlFor="todo-title">
             Title:
